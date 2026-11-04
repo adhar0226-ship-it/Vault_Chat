@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>VaultChat — Secure Private Communication</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div id="toast"></div>
+
+<!-- 1. LANDING PAGE -->
+<div id="page-landing" class="page active">
+  <div class="landing-glow-l"></div>
+  <div class="landing-glow-r"></div>
+  <div class="landing-inner">
+    <div class="logo-mark">
+      <svg class="logo-icon" viewBox="0 0 72 82" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M36 4L66 16V38C66 56 52 70 36 78C20 70 6 56 6 38V16L36 4Z"
+          fill="rgba(0,180,255,0.06)" stroke="url(#logoGrad)" stroke-width="1.5"/>
+        <path d="M36 14L56 23V40C56 53 47 63 36 69C25 63 16 53 16 40V23L36 14Z"
+          fill="rgba(0,180,255,0.04)" stroke="rgba(0,180,255,0.3)" stroke-width="1"/>
+        <path d="M27 40L33 46L46 33" stroke="#00b4ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <defs>
+          <linearGradient id="logoGrad" x1="6" y1="4" x2="66" y2="78" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#00b4ff"/>
+            <stop offset="100%" stop-color="#00ffc8"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <div>
+        <div class="logo-name">VaultChat</div>
+        <div class="logo-tagline">Secure Private Communication</div>
+      </div>
+    </div>
+    <div class="hero-headline">
+      Ephemeral encrypted-style rooms.<br/>No traces. No history. Just conversation.
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-title">End-to-End Protected</div>
+        <div class="feature-desc">All rooms are password-protected with hashed credentials stored securely.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-title">Private Rooms</div>
+        <div class="feature-desc">Create isolated rooms with unique IDs. Only users with the correct credentials can enter.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-title">Auto-Expiring</div>
+        <div class="feature-desc">Rooms and messages are automatically purged when all users leave and the inactivity timer expires.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-title">Real-Time Presence</div>
+        <div class="feature-desc">Live user count and instant message delivery powered by Realtime Database.</div>
+      </div>
+    </div>
+    <div class="landing-cta">
+      <button class="btn-get-started" onclick="startApp()">Get Started</button>
+      <div class="cta-note">No account required &mdash; rooms are temporary by design</div>
+    </div>
+  </div>
+</div>
+
+<!-- 2. SHIELD ANIMATION PAGE -->
+<div id="page-shield" class="page" style="align-items:center;justify-content:center;background:var(--bg-deep);">
+  <svg id="shield-svg" viewBox="0 0 140 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M70 8L128 30V72C128 108 102 136 70 152C38 136 12 108 12 72V30L70 8Z"
+      fill="rgba(0,180,255,0.05)" stroke="url(#shieldGrad)" stroke-width="2"/>
+    <path d="M70 26L110 43V74C110 101 92 122 70 134C48 122 30 101 30 74V43L70 26Z"
+      fill="rgba(0,180,255,0.04)" stroke="rgba(0,180,255,0.35)" stroke-width="1.5"/>
+    <path d="M52 78L65 91L92 62" stroke="url(#checkGrad)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <defs>
+      <linearGradient id="shieldGrad" x1="12" y1="8" x2="128" y2="152" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stop-color="#00b4ff"/>
+        <stop offset="100%" stop-color="#00ffc8"/>
+      </linearGradient>
+      <linearGradient id="checkGrad" x1="52" y1="78" x2="92" y2="91" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stop-color="#00b4ff"/>
+        <stop offset="100%" stop-color="#00ffc8"/>
+      </linearGradient>
+    </defs>
+  </svg>
+  <div class="shield-glow-l"></div>
+  <div class="shield-glow-r"></div>
+</div>
+
+<!-- 3. ACCESS SELECTION PAGE -->
+<div id="page-access" class="page" style="align-items:center;justify-content:center;">
+  <div class="glass-card access-card">
+    <div class="access-title">Select Access Mode</div>
+    <div class="access-sub">Create a secure room as admin, or enter an existing room using credentials provided by the room creator.</div>
+    <div class="access-buttons">
+      <button class="access-btn" onclick="goAdmin()">
+        <div class="access-btn-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00b4ff" stroke-width="1.8" stroke-linecap="round">
+            <path d="M12 2L20 6v6c0 5.5-3.5 9.5-8 11C7.5 21.5 4 17.5 4 12V6l8-4z"/>
+            <path d="M9 12l2 2 4-4"/>
+          </svg>
+        </div>
+        <div class="access-btn-info">
+          <span class="access-btn-name">Admin Access</span>
+          <span class="access-btn-desc">Create a new secure room and set credentials</span>
+        </div>
+      </button>
+      <button class="access-btn" onclick="goJoin()">
+        <div class="access-btn-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00b4ff" stroke-width="1.8" stroke-linecap="round">
+            <rect x="3" y="11" width="18" height="11" rx="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+        </div>
+        <div class="access-btn-info">
+          <span class="access-btn-name">Room Access</span>
+          <span class="access-btn-desc">Join an existing room with Room ID and password</span>
+        </div>
+      </button>
+    </div>
+    <button class="back-link" onclick="goBack('page-landing')" style="align-self:center;margin-top:8px;">
+      &larr; Back to Home
+    </button>
+  </div>
+</div>
+
+<!-- 4. ADMIN — CREATE ROOM -->
+<div id="page-admin" class="page" style="align-items:center;justify-content:center;">
+  <div class="glass-card form-card">
+    <button class="back-link" onclick="goBack('page-access')">&larr; Back</button>
+    <div class="form-header">
+      <div class="form-title">Create Secure Room</div>
+      <div class="form-sub">You will become the room admin. Share the Room ID and password with trusted participants only.</div>
+    </div>
+    <div class="form-divider"></div>
+    <div class="field-group">
+      <label class="field-label">Username</label>
+      <input id="admin-username" class="field-input" type="text" maxlength="24" placeholder="Your display name" autocomplete="off"/>
+    </div>
+    <div class="field-group">
+      <label class="field-label">Room ID</label>
+      <div class="inline-row">
+        <div class="field-group" style="flex:1;gap:0;">
+          <input id="admin-room-id" class="field-input" type="text" maxlength="16"
+            placeholder="e.g. VAULT7821"
+            style="text-transform:uppercase;letter-spacing:0.1em;" autocomplete="off"/>
+        </div>
+        <button class="btn btn-ghost" onclick="generateId()" style="padding:12px 14px;font-size:11px;white-space:nowrap;">
+          Generate
+        </button>
+      </div>
+    </div>
+    <div class="field-group">
+      <label class="field-label">Room Password</label>
+      <input id="admin-password" class="field-input" type="password" maxlength="64" placeholder="Minimum 6 characters" autocomplete="new-password"/>
+    </div>
+    <div class="field-group">
+      <label class="field-label">Confirm Password</label>
+      <input id="admin-confirm" class="field-input" type="password" maxlength="64" placeholder="Repeat password" autocomplete="new-password"/>
+    </div>
+    <div id="admin-error" class="error-msg"></div>
+    <button id="btn-create" class="btn btn-primary" onclick="createRoom()" data-label="Create Room" style="width:100%;padding:15px;">
+      Create Room
+    </button>
+  </div>
+</div>
+
+<!-- 5. JOIN ROOM -->
+<div id="page-join" class="page" style="align-items:center;justify-content:center;">
+  <div class="glass-card form-card">
+    <button class="back-link" onclick="goBack('page-access')">&larr; Back</button>
+    <div class="form-header">
+      <div class="form-title">Enter Secure Room</div>
+      <div class="form-sub">Enter the Room ID and password provided by the room admin to join the session.</div>
+    </div>
+    <div class="form-divider"></div>
+    <div class="field-group">
+      <label class="field-label">Username</label>
+      <input id="join-username" class="field-input" type="text" maxlength="24" placeholder="Your display name" autocomplete="off"/>
+    </div>
+    <div class="field-group">
+      <label class="field-label">Room ID</label>
+      <input id="join-room-id" class="field-input" type="text" maxlength="16"
+        placeholder="e.g. VAULT7821"
+        style="text-transform:uppercase;letter-spacing:0.1em;" autocomplete="off"/>
+    </div>
+    <div class="field-group">
+      <label class="field-label">Room Password</label>
+      <input id="join-password" class="field-input" type="password" maxlength="64" placeholder="Room password" autocomplete="current-password"/>
+    </div>
+    <div id="join-error" class="error-msg"></div>
+    <button id="btn-join" class="btn btn-primary" onclick="joinRoom()" data-label="Enter Room" style="width:100%;padding:15px;">
+      Enter Room
+    </button>
+  </div>
+</div>
+
+<!-- 6. CHAT ROOM -->
+<div id="page-chat" class="page">
+  <div class="chat-topbar">
+    <div class="topbar-left">
+      <div class="topbar-room-label">Active Room</div>
+      <div class="topbar-room-id" id="chat-room-id" onclick="copyRoomId()" title="Click to copy Room ID">
+        <span id="chat-room-id-text"></span>
+        <svg class="copy-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+        </svg>
+      </div>
+    </div>
+    <div class="topbar-center">
+      <div class="presence-dot"></div>
+      <div class="presence-text"><span id="user-count">0</span> online</div>
+    </div>
+    <div class="topbar-right">
+      <button class="icon-btn" onclick="toggleRoomInfo()" title="Room Info">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+      </button>
+      <button class="icon-btn" onclick="shareRoom()" title="Share Room">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+          <path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98"/>
+        </svg>
+      </button>
+      <button class="btn btn-danger" onclick="leaveRoom()" style="padding:8px 16px;font-size:11px;">
+        Leave
+      </button>
+    </div>
+  </div>
+
+  <div id="room-info-panel">
+    <div class="room-info-row">
+      <span class="room-info-key">Room ID</span>
+      <span class="room-info-val" id="info-room-id"></span>
+    </div>
+    <div class="room-info-row">
+      <span class="room-info-key">Participants Online</span>
+      <span class="room-info-val" id="info-user-count"></span>
+    </div>
+    <div class="room-info-row">
+      <span class="room-info-key">Session Started</span>
+      <span class="room-info-val" id="info-created"></span>
+    </div>
+    <div class="room-info-row">
+      <span class="room-info-key">Auto-Delete</span>
+      <span class="room-info-val" style="color:var(--accent2);">3 min after last user leaves</span>
+    </div>
+    <div class="participant-section-title">All Participants</div>
+    <div id="participant-list"></div>
+  </div>
+
+  <div class="chat-user-strip">
+    Connected as <span id="chat-username"></span>
+  </div>
+
+  <!-- Pinned message bar -->
+  <div id="pinned-bar" onclick="scrollToPinnedMsg()">
+    <div class="pinned-bar-indicator"></div>
+    <svg class="pinned-bar-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;">
+      <line x1="12" y1="17" x2="12" y2="22"/><path d="M5 17h14v-1.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V6h1a2 2 0 0 0 0-4H8a2 2 0 0 0 0 4h1v4.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24Z"/>
+    </svg>
+    <div class="pinned-bar-content">
+      <div class="pinned-bar-label">📌 Pinned Message</div>
+      <div class="pinned-bar-text" id="pinned-text"></div>
+      <div class="pinned-bar-author" id="pinned-author"></div>
+    </div>
+    <button class="pinned-bar-close" title="Unpin message" onclick="event.stopPropagation(); unpinMessage();">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+  </div>
+
+  <div id="msg-feed" class="msg-feed">
+    <div class="msg-feed-empty" id="empty-state">No messages yet &mdash; say something</div>
+  </div>
+
+  <button id="scroll-btn" onclick="scrollToBottom()" title="Scroll to bottom">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+      <polyline points="6 9 12 15 18 9"/>
+    </svg>
+  </button>
+
+<!-- Typing indicator -->
+  <div class="typing-indicator-bar" id="typing-indicator-bar">
+    <span class="typing-names" id="typing-names"></span>
+    <div class="typing-dots" id="typing-dots">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+
+  <div id="reply-bar">
+    <div class="reply-bar-indicator"></div>
+    <div class="reply-bar-content">
+      <div class="reply-bar-name" id="reply-name"></div>
+      <div class="reply-bar-preview" id="reply-preview"></div>
+    </div>
+    <button class="reply-bar-close" onclick="clearReply()" title="Cancel reply">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="chat-input-bar">
+    <input
+      id="msg-input"
+      class="field-input"
+      type="text"
+      maxlength="2000"
+      placeholder="Type a message..."
+      autocomplete="off"
+      onkeydown="handleMsgKey(event)"
+      oninput="handleTypingInput()"
+    />
+    <button class="send-btn" onclick="sendMessage()" title="Send">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+        <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<div class="credits-footer">
+  <div class="credits-inner">
+    <div class="credits-dot"></div>
+    <span class="credits-text">
+      Built by <span class="credits-name">Abhigyan Dhar</span>
+      <span class="credits-divider">&nbsp;/&nbsp;</span>
+      Powered by VaultChat
+    </span>
+    <div class="credits-dot"></div>
+  </div>
+</div>
+
+</body>
+</html>
