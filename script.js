@@ -9,7 +9,7 @@
   } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
   // ── Fetch Firebase config from your Render backend ──────────
-  const CONFIG_URL = "https://backend-0uf8.onrender.com/api/firebase-config";
+  const CONFIG_URL = "https://vault-chat-backend.onrender.com/api/firebase-config";
 
   let db, rtdb;
 
